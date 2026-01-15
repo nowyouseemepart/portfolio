@@ -1,169 +1,70 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ayesha Ibrahim | Portfolio</title>
+    <link rel="stylesheet" href="style.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        body { background-color: #050505; color: #ffffff; font-family: 'Inter', sans-serif; overflow-x: hidden; }
-        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .neon-text { text-shadow: 0 0 10px rgba(59, 130, 246, 0.5); }
-        .hero-gradient { background: radial-gradient(circle at 50% 50%, #1e1e1e 0%, #050505 100%); }
-        details summary::-webkit-details-marker { display:none; }
-        .custom-card:hover { transform: translateY(-5px); border-color: #3b82f6; transition: all 0.3s ease; }
-    </style>
 </head>
-<body class="hero-gradient">
+<body class="bg-black text-white">
 
-    <nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50 glass px-6 py-3 rounded-full flex gap-8 text-sm font-medium">
-        <a href="#about" class="hover:text-blue-400 transition">About</a>
-        <a href="#experience" class="hover:text-blue-400 transition">Experience</a>
-        <a href="#projects" class="hover:text-blue-400 transition">Projects</a>
-        <a href="#leadership" class="hover:text-blue-400 transition">Leadership</a>
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <nav class="navbar">
+        <div class="nav-content glass">
+            <a href="#home">Home</a>
+            <a href="#experience">Experience</a>
+            <a href="#leadership">Leadership</a>
+        </div>
     </nav>
 
-    <section id="about" class="min-h-screen flex flex-col justify-center items-center px-6 pt-20">
-        <div data-aos="zoom-out" data-aos-duration="1500" class="text-center">
-            <h1 class="text-7xl md:text-9xl font-black mb-4 tracking-tighter neon-text">AYESHA<br>IBRAHIM</h1>
-            <p class="text-slate-400 text-lg md:text-2xl font-light mb-8 max-w-2xl">
-                Computer Science Engineer [cite: 4] & Web Developer [cite: 22] specializing in AI and Machine Learning[cite: 30, 32].
-            </p>
-            <div class="flex gap-4 justify-center">
-                <a href="mailto:ayeshaibrahim568@gmail.com" class="glass px-6 py-2 rounded-lg hover:bg-white hover:text-black transition">Email Me [cite: 3]</a>
-                <a href="https://www.linkedin.com/in/ibrahim-ayesha" class="glass px-6 py-2 rounded-lg hover:bg-white hover:text-black transition italic">LinkedIn [cite: 3]</a>
-            </div>
-        </div>
+    <section id="home" class="hero-section">
+        <h1 class="hero-title" data-aos="zoom-in">AYESHA IBRAHIM</h1>
+        <p class="hero-subtitle" data-aos="fade-up">Computer Science Engineer | Hyderabad [cite: 2, 4]</p>
     </section>
 
-    <div class="max-w-5xl mx-auto px-6 space-y-32 pb-32">
-
-        <section data-aos="fade-up" class="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-                <h2 class="text-4xl font-bold mb-6">Education [cite: 1]</h2>
-                <div class="space-y-4">
-                    <div class="glass p-6 rounded-2xl">
-                        <h3 class="font-bold text-xl text-blue-400">MJCET [cite: 4]</h3>
-                        <p class="text-slate-300">B.E. Computer Science, 2020-2025 [cite: 4, 8]</p>
-                        <p class="text-sm mt-2 text-slate-500 italic">Graduated with Distinction | GPA: 7.6 [cite: 5, 6]</p>
+    <main class="container">
+        <section id="leadership" class="section">
+            <h2 class="section-heading">Leadership</h2>
+            <div class="accordion">
+                <div class="accordion-item glass" data-aos="fade-up">
+                    <div class="accordion-header">
+                        <h3>General Secretary, Orators' Club [cite: 46]</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Directed soft skill workshops for 200+ students and organized intra-college debates and speeches[cite: 47].</p>
                     </div>
                 </div>
-            </div>
-            <div class="glass p-8 rounded-2xl">
-                <h4 class="text-xs uppercase tracking-widest text-blue-500 mb-4">Core Knowledge [cite: 9]</h4>
-                <div class="flex flex-wrap gap-2">
-                    <span class="px-3 py-1 bg-white/5 rounded-full text-xs">Algorithms [cite: 9]</span>
-                    <span class="px-3 py-1 bg-white/5 rounded-full text-xs">Statistics [cite: 9]</span>
-                    <span class="px-3 py-1 bg-white/5 rounded-full text-xs">AI & ML [cite: 9]</span>
-                    <span class="px-3 py-1 bg-white/5 rounded-full text-xs">Cloud Computing [cite: 9]</span>
-                </div>
-            </div>
-        </section>
 
-        <section id="experience" data-aos="fade-up">
-            <h2 class="text-5xl font-black mb-12 italic opacity-20 uppercase tracking-tighter">Experience [cite: 12]</h2>
-            <div class="space-y-6">
-                <details class="group glass rounded-3xl overflow-hidden" open>
-                    <summary class="flex justify-between items-center p-8 cursor-pointer list-none">
-                        <div>
-                            <span class="text-blue-500 text-sm font-bold uppercase tracking-widest">Aug 2025 - Jan 2026 [cite: 18]</span>
-                            <h3 class="text-3xl font-bold mt-1">Cognizant [cite: 13]</h3>
-                            <p class="text-slate-400">Technical Support for Google [cite: 14]</p>
-                        </div>
-                        <div class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center group-open:rotate-180 transition-transform">
-                            <i class="fas fa-arrow-down"></i>
-                        </div>
-                    </summary>
-                    <div class="px-8 pb-8 text-slate-400 space-y-3 border-t border-white/5 pt-6">
-                        <p>• Provided technical troubleshooting for Google Ads platform[cite: 19].</p>
-                        <p>• Optimized account setup and ad creation processes[cite: 19].</p>
-                        <p>• Coordinated with cross-functional teams to resolve technical challenges[cite: 19].</p>
-                        <p>• Maintained knowledge base articles and trained team members[cite: 20].</p>
+                <div class="accordion-item glass" data-aos="fade-up" data-aos-delay="100">
+                    <div class="accordion-header">
+                        <h3>R&D Head, Club OPTIMUS [cite: 47]</h3>
+                        <i class="fas fa-chevron-down"></i>
                     </div>
-                </details>
-
-                <details class="group glass rounded-3xl overflow-hidden">
-                    <summary class="flex justify-between items-center p-8 cursor-pointer list-none">
-                        <div>
-                            <span class="text-blue-500 text-sm font-bold uppercase tracking-widest">Oct 2023 - Apr 2025 [cite: 24]</span>
-                            <h3 class="text-3xl font-bold mt-1">Zvan [cite: 21]</h3>
-                            <p class="text-slate-400">Web Developer [cite: 22]</p>
-                        </div>
-                        <div class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center group-open:rotate-180 transition-transform">
-                            <i class="fas fa-arrow-down"></i>
-                        </div>
-                    </summary>
-                    <div class="px-8 pb-8 text-slate-400 space-y-3 border-t border-white/5 pt-6">
-                        <p>• Developed responsive websites using HTML, CSS, and Bootstrap[cite: 25].</p>
-                        <p>• Enhanced UI/UX and SEO performance for client campaigns[cite: 25].</p>
-                        <p>• Integrated dynamic API features and lazy loading[cite: 26].</p>
-                        <p>• Implemented Git-based workflows across dev teams[cite: 27].</p>
-                    </div>
-                </details>
-            </div>
-        </section>
-
-        <section id="projects" data-aos="fade-up">
-            <h2 class="text-4xl font-bold mb-12">Featured Projects [cite: 32]</h2>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="custom-card glass p-8 rounded-3xl">
-                    <div class="mb-4 text-blue-500"><i class="fas fa-fingerprint fa-2x"></i></div>
-                    <h3 class="text-2xl font-bold mb-2">Door-ity: Smart Lock [cite: 33]</h3>
-                    <p class="text-slate-400 text-sm mb-6">IoT-based security integrating facial recognition, fingerprint, and RFID[cite: 33].</p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="text-[10px] uppercase font-bold px-2 py-1 bg-white/10 rounded">Python [cite: 33]</span>
-                        <span class="text-[10px] uppercase font-bold px-2 py-1 bg-white/10 rounded">Arduino [cite: 33]</span>
+                    <div class="accordion-content">
+                        <p>Spearheaded robotics development teams and represented MJCET in national-level tech contests[cite: 49].</p>
                     </div>
                 </div>
-                <div class="custom-card glass p-8 rounded-3xl">
-                    <div class="mb-4 text-purple-500"><i class="fas fa-brain fa-2x"></i></div>
-                    <h3 class="text-2xl font-bold mb-2">Anxiety Classifier [cite: 35]</h3>
-                    <p class="text-slate-400 text-sm mb-6">ML model classifying anxiety levels through behavioral data analysis[cite: 37].</p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="text-[10px] uppercase font-bold px-2 py-1 bg-white/10 rounded">Scikit-learn [cite: 35]</span>
-                        <span class="text-[10px] uppercase font-bold px-2 py-1 bg-white/10 rounded">Pandas [cite: 35]</span>
+
+                <div class="accordion-item glass" data-aos="fade-up" data-aos-delay="200">
+                    <div class="accordion-header">
+                        <h3>Marketing Head, E-Cell MJCET [cite: 50]</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Led cross-functional teams to execute outreach strategies for events with 1000+ participants[cite: 51].</p>
                     </div>
                 </div>
             </div>
         </section>
-
-        <section id="leadership" data-aos="fade-left">
-            <h2 class="text-4xl font-bold mb-8">Leadership [cite: 45]</h2>
-            <div class="flex overflow-x-auto gap-6 pb-6 no-scrollbar">
-                <div class="min-w-[300px] glass p-6 rounded-2xl">
-                    <h4 class="font-bold">General Secretary [cite: 46]</h4>
-                    <p class="text-xs text-blue-400">Orators' Club, MJCET [cite: 46]</p>
-                    <p class="text-sm mt-3 text-slate-500">Directed soft skill workshops for 200+ students[cite: 47].</p>
-                </div>
-                <div class="min-w-[300px] glass p-6 rounded-2xl">
-                    <h4 class="font-bold">R&D Head [cite: 47]</h4>
-                    <p class="text-xs text-blue-400">Club OPTIMUS (Robotics) [cite: 47]</p>
-                    <p class="text-sm mt-3 text-slate-500">Spearheaded robotics development for tech contests[cite: 49].</p>
-                </div>
-                <div class="min-w-[300px] glass p-6 rounded-2xl">
-                    <h4 class="font-bold">Marketing Head [cite: 50]</h4>
-                    <p class="text-xs text-blue-400">E-Cell MJCET [cite: 50]</p>
-                    <p class="text-sm mt-3 text-slate-500">Executed outreach for events with 1000+ participants[cite: 51].</p>
-                </div>
-            </div>
-        </section>
-
-    </div>
-
-    <footer class="glass border-t-0 rounded-t-[50px] py-20 text-center">
-        <h3 class="text-2xl font-bold mb-6 italic">Let's Connect</h3>
-        <div class="text-slate-500 text-sm mb-8 space-y-1">
-            <p>Languages: English, Hindi, Urdu, Telugu, Tamil [cite: 57]</p>
-            <p>Interests: Photography, Football, Strength training, Hiking [cite: 59]</p>
-        </div>
-        <p class="text-[10px] uppercase tracking-widest opacity-30">© 2026 Ayesha Ibrahim | Hyderabad, Telangana </p>
-    </footer>
+    </main>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init({ once: true });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
