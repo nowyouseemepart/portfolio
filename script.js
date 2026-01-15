@@ -1,31 +1,35 @@
-// Initialize Animations
-AOS.init({ duration: 1000, once: true });
+AOS.init({ duration: 1200, once: true });
 
-// Custom Cursor Logic
-const cursorDot = document.querySelector(".cursor-dot");
-const cursorOutline = document.querySelector(".cursor-outline");
+// Cursor Logic
+const dot = document.querySelector('.cursor-dot');
+const outline = document.querySelector('.cursor-outline');
 
-window.addEventListener("mousemove", (e) => {
-    const posX = e.clientX;
-    const posY = e.clientY;
-
-    cursorDot.style.left = `${posX}px`;
-    cursorDot.style.top = `${posY}px`;
-
-    cursorOutline.animate({
-        left: `${posX}px`,
-        top: `${posY}px`
+window.addEventListener('mousemove', (e) => {
+    dot.style.left = e.clientX + 'px';
+    dot.style.top = e.clientY + 'px';
+    
+    // Smooth trailing outline
+    outline.animate({
+        left: e.clientX + 'px',
+        top: e.clientY + 'px'
     }, { duration: 500, fill: "forwards" });
 });
 
-// Accordion Toggle for Experience/Leadership
-document.querySelectorAll('.accordion-header').forEach(header => {
-    header.addEventListener('click', () => {
-        const item = header.parentElement;
-        item.classList.toggle('active');
-        
-        // Rotate Icon
-        const icon = header.querySelector('i');
-        icon.style.transform = item.classList.contains('active') ? 'rotate(180deg)' : 'rotate(0deg)';
+// Parallax for Orbs
+window.addEventListener('scroll', () => {
+    const scroll = window.pageYOffset;
+    document.querySelector('.orb-1').style.transform = `translateY(${scroll * 0.2}px)`;
+    document.querySelector('.orb-2').style.transform = `translateY(${scroll * -0.1}px)`;
+});
+
+// Hover effect for links
+document.querySelectorAll('a, details, summary').forEach(link => {
+    link.addEventListener('mouseenter', () => {
+        outline.style.transform = 'scale(1.5)';
+        outline.style.background = 'rgba(255,255,255,0.1)';
+    });
+    link.addEventListener('mouseleave', () => {
+        outline.style.transform = 'scale(1)';
+        outline.style.background = 'transparent';
     });
 });
