@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap');
 
 html {
-    scroll-behavior: smooth;
+    /* Removed scroll-behavior: smooth to allow JS to handle inertia */
     overflow-x: hidden;
 }
 
@@ -19,9 +19,10 @@ body {
     overflow-x: hidden;
     height: auto;
     -webkit-font-smoothing: antialiased;
+    overscroll-behavior: none; /* Prevents browser bounce */
 }
 
-/* --- HERO TEXT RESTORATION --- */
+/* --- HERO TEXT (Original Bold Style) --- */
 .hero-text {
     font-size: clamp(4rem, 12vw, 10rem);
     font-weight: 900;
@@ -67,15 +68,13 @@ body {
     border-radius: 50%; margin-left: -20px; margin-top: -20px;
 }
 
-/* --- UI COMPONENTS --- */
-.glass {
-    background: rgba(255, 255, 255, 0.02);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-}
+/* --- NAVIGATION --- */
 .nav-bar {
     position: fixed; top: 30px; left: 50%; transform: translateX(-50%);
     padding: 15px 40px; z-index: 1000; border-radius: 100px;
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 /* --- PROJECT CARDS --- */
@@ -91,7 +90,7 @@ body {
 }
 .project-container:hover .frame-overlay { opacity: 1; }
 
-/* --- FOOTER --- */
+/* --- FOOTER & GRADIENT --- */
 .footer-wrap {
     position: relative; height: 100vh; display: flex; align-items: center;
     justify-content: center; overflow: hidden; margin-top: 100px;
