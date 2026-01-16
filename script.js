@@ -1,69 +1,81 @@
-// 1. INITIALIZE AOS
 AOS.init({ duration: 1200, once: true });
 
-const dot = document.querySelector('.cursor-dot');
-const outline = document.querySelector('.cursor-outline');
-const orb1 = document.querySelector('.orb-1');
-const orb2 = document.querySelector('.orb-2');
+const body = document.body;
+const scrollContainer = document.querySelector("#scroll-container");
+const scrollContent = document.querySelector("#scroll-content");
 
-// 2. SMOOTHING VARIABLES
-let mouseX = 0, mouseY = 0;
-let cursorX = 0, cursorY = 0;
 let scrollTarget = 0;
 let scrollCurrent = 0;
+const scrollEase = 0.08; // Adjust between 0.05 (slower) and 0.1 (faster)
 
-// Set ease: 0.05 is very smooth and 'heavy'
-const scrollEase = 0.05; 
-const cursorEase = 0.15;
+// Sync height of body to content height
+function setBodyHeight() {
+    body.style.height = scrollContent.getBoundingClientRect().height + "px";
+}
+window.addEventListener("resize", setBodyHeight);
+setBodyHeight();
 
-scrollTarget = window.scrollY;
-scrollCurrent = window.scrollY;
+// The Smoothing Function
+function lerp(start, end, t) {
+    return start * (1 - t) + end * t;
+}
 
-// 3. EVENT LISTENERS
-window.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    // Dot moves instantly with mouse
-    dot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
-});
+function smoothScroll() {
+    scrollCurrent = lerp(scrollCurrent, scrollTarget, scrollEase);
+    
+    // Move the content using GPU transform
+    scrollContent.style.transform = `translateY(-${scrollCurrent}px)`;
+    
+    // Refresh AOS positions as we scroll
+    if (Math.abs(scrollTarget - scrollCurrent) > 0.1) {
+        AOS.refresh();
+    }
 
-window.addEventListener('wheel', (e) => {
-    // Intercept default scroll
+    requestAnimationFrame(smoothScroll);
+}
+
+// Mouse Wheel Event
+window.addEventListener("wheel", (e) => {
     e.preventDefault();
     scrollTarget += e.deltaY;
     
-    // Boundary check
-    scrollTarget = Math.max(0, Math.min(scrollTarget, document.body.scrollHeight - window.innerHeight));
+    // Clamp values
+    const maxScroll = scrollContent.getBoundingClientRect().height - window.innerHeight;
+    scrollTarget = Math.max(0, Math.min(scrollTarget, maxScroll));
 }, { passive: false });
 
-// 4. ANIMATION LOOP (Cursor + Refined Smooth Scroll)
-function mainLoop() {
-    // Smooth Cursor Outline
-    cursorX += (mouseX - cursorX) * cursorEase;
-    cursorY += (mouseY - cursorY) * cursorEase;
-    outline.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
-
-    // REFINED Smooth Scroll Logic (Inertia)
-    let scrollDiff = scrollTarget - scrollCurrent;
-    scrollCurrent += scrollDiff * scrollEase;
-    window.scrollTo(0, scrollCurrent);
-
-    // Orb Parallax (Synced to smooth scroll)
-    if(orb1) orb1.style.transform = `translateY(${scrollCurrent * 0.15}px)`;
-    if(orb2) orb2.style.transform = `translateY(${scrollCurrent * -0.1}px)`;
-
-    requestAnimationFrame(mainLoop);
-}
-
 // Start the loop
-mainLoop();
+smoothScroll();
 
-// 5. ACCORDION AUTO-CLOSE LOGIC
-const details = document.querySelectorAll("details");
-details.forEach((targetDetail) => {
-    targetDetail.addEventListener("click", () => {
-        details.forEach((detail) => {
-            if (detail !== targetDetail) detail.removeAttribute("open");
-        });
+// --- CURSOR LOGIC ---
+const dot = document.querySelector('.cursor-dot');
+const outline = document.querySelector('.cursor-outline');
+let mouseX = 0, mouseY = 0;
+let cursorX = 0, cursorY = 0;
+
+window.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    dot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+});
+
+function animateCursor() {
+    cursorX = lerp(cursorX, mouseX, 0.15);
+    cursorY = lerp(cursorY, mouseY, 0.15);
+    outline.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
+    requestAnimationFrame(animateCursor);
+}
+animateCursor();
+
+// --- NAV CLICK FIX ---
+// Standard anchors don't work with virtual scroll, so we intercept them
+document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+            scrollTarget = targetElement.offsetTop;
+        }
     });
 });
