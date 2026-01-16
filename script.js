@@ -1,35 +1,81 @@
+// Initialize AOS Animations
 AOS.init({ duration: 1200, once: true });
 
-// Cursor Logic
+// Cursor Elements
 const dot = document.querySelector('.cursor-dot');
 const outline = document.querySelector('.cursor-outline');
 
+// State Variables for Smooth Motion (Lerp)
+let mouseX = 0, mouseY = 0;     // Target position
+let outlineX = 0, outlineY = 0; // Current outline position
+
+// 1. Track Mouse Movement
 window.addEventListener('mousemove', (e) => {
-    dot.style.left = e.clientX + 'px';
-    dot.style.top = e.clientY + 'px';
+    mouseX = e.clientX;
+    mouseY = e.clientY;
     
-    // Smooth trailing outline
-    outline.animate({
-        left: e.clientX + 'px',
-        top: e.clientY + 'px'
-    }, { duration: 500, fill: "forwards" });
+    // Dot moves instantly
+    dot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
 });
 
-// Parallax for Orbs
+// 2. The Animation Loop for Smooth Outline
+function animateCursor() {
+    // Linear Interpolation (0.15 creates a soft lag effect)
+    outlineX += (mouseX - outlineX) * 0.15;
+    outlineY += (mouseY - outlineY) * 0.15;
+    
+    outline.style.transform = `translate(${outlineX}px, ${outlineY}px)`;
+    
+    requestAnimationFrame(animateCursor);
+}
+animateCursor();
+
+// 3. Magnetic Effect Logic
+const magneticItems = document.querySelectorAll('.contact-pill, .nav-link, .exp-item summary, .project-container');
+
+magneticItems.forEach(item => {
+    item.addEventListener('mousemove', function(e) {
+        const rect = this.getBoundingClientRect();
+        
+        // Calculate Distance from Center
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        
+        const deltaX = e.clientX - centerX;
+        const deltaY = e.clientY - centerY;
+
+        // Apply Magnetic Pull (Strength: 0.25)
+        this.style.transform = `translate(${deltaX * 0.25}px, ${deltaY * 0.25}px)`;
+        
+        // Scale Cursor
+        outline.classList.add('active');
+    });
+
+    item.addEventListener('mouseleave', function() {
+        // Reset Position
+        this.style.transform = `translate(0px, 0px)`;
+        outline.classList.remove('active');
+    });
+});
+
+// 4. Parallax Background Orbs
 window.addEventListener('scroll', () => {
     const scroll = window.pageYOffset;
-    document.querySelector('.orb-1').style.transform = `translateY(${scroll * 0.2}px)`;
-    document.querySelector('.orb-2').style.transform = `translateY(${scroll * -0.1}px)`;
+    const orb1 = document.querySelector('.orb-1');
+    const orb2 = document.querySelector('.orb-2');
+    
+    if(orb1) orb1.style.transform = `translateY(${scroll * 0.2}px)`;
+    if(orb2) orb2.style.transform = `translateY(${scroll * -0.1}px)`;
 });
 
-// Hover effect for links
-document.querySelectorAll('a, details, summary').forEach(link => {
-    link.addEventListener('mouseenter', () => {
-        outline.style.transform = 'scale(1.5)';
-        outline.style.background = 'rgba(255,255,255,0.1)';
-    });
-    link.addEventListener('mouseleave', () => {
-        outline.style.transform = 'scale(1)';
-        outline.style.background = 'transparent';
+// 5. Accordion Auto-Close Logic
+const details = document.querySelectorAll("details");
+details.forEach((targetDetail) => {
+    targetDetail.addEventListener("click", () => {
+        details.forEach((detail) => {
+            if (detail !== targetDetail) {
+                detail.removeAttribute("open");
+            }
+        });
     });
 });
