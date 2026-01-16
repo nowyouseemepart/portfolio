@@ -79,3 +79,37 @@ details.forEach((targetDetail) => {
         });
     });
 });
+// --- SMOOTH SCROLL VELOCITY ---
+// Line: At the bottom of script.js
+
+let currentScroll = 0;
+let targetScroll = 0;
+const ease = 0.075; // Adjust this for "weight": Lower is smoother/slower
+
+function smoothScroll() {
+    // Linear Interpolation (Lerp) for scroll position
+    currentScroll += (targetScroll - currentScroll) * ease;
+    
+    // Use the native scrollTo with our calculated eased value
+    window.scrollTo(0, currentScroll);
+    
+    requestAnimationFrame(smoothScroll);
+}
+
+// Initial setup
+targetScroll = window.scrollY;
+currentScroll = window.scrollY;
+
+window.addEventListener('wheel', (e) => {
+    // Prevent default browser jumpy scroll
+    e.preventDefault();
+    
+    // Update the target scroll based on wheel movement
+    targetScroll += e.deltaY;
+    
+    // Clamp values so you don't scroll past top or bottom
+    targetScroll = Math.max(0, Math.min(targetScroll, document.body.scrollHeight - window.innerHeight));
+}, { passive: false });
+
+// Start the animation loop
+smoothScroll();
