@@ -22,10 +22,10 @@
 
     <nav class="nav-bar glass" data-aos="fade-down">
         <div class="flex gap-6 text-[10px] tracking-[0.4em] font-black uppercase">
-            <a href="#about" class="nav-link">About</a>
-            <a href="#experience" class="nav-link">Work</a>
-            <a href="#projects" class="nav-link">Projects</a>
-            <a href="#contact" class="nav-link">Contact</a>
+            <a href="#about" class="hover:text-blue-500 transition-colors">About</a>
+            <a href="#experience" class="hover:text-blue-500 transition-colors">Work</a>
+            <a href="#projects" class="hover:text-blue-500 transition-colors">Projects</a>
+            <a href="#contact" class="hover:text-blue-500 transition-colors">Contact</a>
         </div>
     </nav>
 
@@ -38,7 +38,7 @@
         </h1>
         <div class="mt-8 flex flex-col md:flex-row gap-8 items-end justify-between">
             <p class="max-w-xl text-lg md:text-xl font-light text-slate-400" data-aos="fade-up" data-aos-delay="400">
-                A Computer Science Engineer graduated with <span class="text-white font-bold underline decoration-blue-500">Distinction</span>. 
+                A Computer Science Engineer graduated with <span class="text-white font-bold underline decoration-blue-500">Distinction</span> (7.7 CGPA). 
                 Merging logic with design to build scalable software solutions.
             </p>
             <div class="flex gap-4" data-aos="fade-left">
@@ -51,14 +51,131 @@
     </header>
 
     <main class="px-8 md:px-24 space-y-48">
-        <section id="experience">
-            <h2 class="label-heading text-white uppercase tracking-widest text-xs mb-12">Professional Journey</h2>
-            <div class="space-y-6">
-                </div>
-        </section>
-        </main>
 
-    <footer id="contact" class="footer-wrap mt-48 py-24">
+        <section class="grid md:grid-cols-2 gap-20">
+            <div data-aos="fade-right">
+                <h2 class="text-white uppercase tracking-widest text-xs mb-8">Technical Arsenal</h2>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="glass p-6">
+                        <h5 class="text-white font-bold mb-2">Languages</h5>
+                        <p class="text-sm">Python, Java, SQL, C, JS, Embedded C</p>
+                    </div>
+                    <div class="glass p-6">
+                        <h5 class="text-white font-bold mb-2">Domains</h5>
+                        <p class="text-sm">Web Dev, ML, Data Science, AI, Cloud</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flex items-center" data-aos="fade-left">
+                <p class="text-sm italic border-l-2 border-blue-500 pl-6 text-slate-400">
+                    "Specialized in high-performance computing, data structures, and designing real-time alert systems using computer vision."
+                </p>
+            </div>
+        </section>
+
+        <section id="experience">
+            <h2 class="text-white uppercase tracking-widest text-xs mb-12">Professional Journey</h2>
+            <div class="space-y-6">
+                <details class="glass group" open>
+                    <summary class="flex justify-between items-center cursor-pointer p-8 list-none">
+                        <div>
+                            <span class="text-blue-500 font-mono text-xs italic">Aug 2025 - Present</span>
+                            <h3 class="text-3xl font-bold text-white mt-2">Cognizant</h3>
+                            <p class="opacity-60 text-sm">Technical Support Executive (Google Ads)</p>
+                        </div>
+                        <i class="fas fa-chevron-down transition-transform group-open:rotate-180"></i>
+                    </summary>
+                    <div class="px-8 pb-8 text-slate-400 border-t border-white/5 pt-6 space-y-3">
+                        <p>• Troubleshot Google Ads platform issues for seamless campaign operations.</p>
+                        <p>• Optimized account setup and coordinated with cross-functional teams.</p>
+                    </div>
+                </details>
+
+                <details class="glass group">
+                    <summary class="flex justify-between items-center cursor-pointer p-8 list-none">
+                        <div>
+                            <span class="text-blue-500 font-mono text-xs italic">Oct 2023 - Jan 2024</span>
+                            <h3 class="text-3xl font-bold text-white mt-2">Zvan (Startup)</h3>
+                            <p class="opacity-60 text-sm">Web Developer</p>
+                        </div>
+                        <i class="fas fa-chevron-down transition-transform group-open:rotate-180"></i>
+                    </summary>
+                    <div class="px-8 pb-8 text-slate-400 border-t border-white/5 pt-6 space-y-3">
+                        <p>• Developed responsive websites using HTML, CSS, JavaScript, and Bootstrap.</p>
+                        <p>• Improved SEO and UI/UX performance through API integration.</p>
+                    </div>
+                </details>
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2 class="text-white uppercase tracking-widest text-xs mb-12">Selected Works</h2>
+            <div class="grid md:grid-cols-2 gap-10">
+                
+                <div class="group" data-aos="fade-up">
+                    <div class="img-frame">
+                        <img src="images/door.png" class="w-full h-full object-cover" alt="Door-ity">
+                        <div class="frame-overlay">
+                            <span>Engineered a secure IoT-based smart lock system integrating facial recognition, fingerprint scanning, and RFID authentication.</span>
+                        </div>
+                    </div>
+                    <h4 class="text-2xl font-bold text-white mt-6">Door-ity: Smart Lock</h4>
+                    <p class="text-xs uppercase tracking-widest text-blue-500 mt-2">Python • Arduino • OpenCV • IoT</p>
+                </div>
+
+                <div class="group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="img-frame">
+                        <img src="images/anxiety.png" class="w-full h-full object-cover" alt="Anxiety Classifier">
+                        <div class="frame-overlay">
+                            <span>Built and compared multiple supervised machine learning models to classify anxiety levels based on behavioral datasets.</span>
+                        </div>
+                    </div>
+                    <h4 class="text-2xl font-bold text-white mt-6">Anxiety Level Classifier</h4>
+                    <p class="text-xs uppercase tracking-widest text-blue-500 mt-2">Scikit-learn • Pandas • ML</p>
+                </div>
+
+                <div class="group" data-aos="fade-up">
+                    <div class="img-frame">
+                        <img src="images/driver.jpg" class="w-full h-full object-cover" alt="Driver Drowsiness">
+                        <div class="frame-overlay">
+                            <span>Designed a real-time drowsiness alert system using facial landmark detection and blink pattern tracking.</span>
+                        </div>
+                    </div>
+                    <h4 class="text-2xl font-bold text-white mt-6">Driver Drowsiness Detection</h4>
+                    <p class="text-xs uppercase tracking-widest text-blue-500 mt-2">Python • Dlib • OpenCV</p>
+                </div>
+
+                <div class="group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="img-frame">
+                        <img src="images/cancer.jpg" class="w-full h-full object-cover" alt="Cancer Risk">
+                        <div class="frame-overlay">
+                            <span>Developed classification models for early-stage cancer detection using clinical datasets.</span>
+                        </div>
+                    </div>
+                    <h4 class="text-2xl font-bold text-white mt-6">Cancer Risk Prediction</h4>
+                    <p class="text-xs uppercase tracking-widest text-blue-500 mt-2">Python • Scikit-learn • Pandas</p>
+                </div>
+
+            </div>
+        </section>
+
+        <section data-aos="fade-up">
+            <h2 class="text-white uppercase tracking-widest text-xs mb-8">Leadership & Impact</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="glass p-6 border-l-4 border-blue-500">
+                    <h5 class="text-white font-bold">General Secretary</h5>
+                    <p class="text-xs">Orators' Club MJCET</p>
+                </div>
+                <div class="glass p-6 border-l-4 border-blue-500">
+                    <h5 class="text-white font-bold">R&D Head</h5>
+                    <p class="text-xs">Club OPTIMUS MJCET</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer id="contact" class="footer-wrap">
         <div class="gradient-bg-video"></div>
         <div class="relative z-10 text-center px-8">
             <h2 class="text-6xl md:text-9xl font-black text-white tracking-tighter mb-12">SAY HELLO.</h2>
@@ -66,10 +183,12 @@
                 <a href="mailto:ayeshaibrahim568@gmail.com" class="contact-pill">Email Address</a>
                 <a href="https://www.linkedin.com/in/ibrahim-ayesha" target="_blank" class="contact-pill">LinkedIn</a>
             </div>
+            <div class="mt-24 text-[10px] tracking-[0.5em] font-bold opacity-30 text-white">
+                HYDERABAD • MJCET • 2026
+            </div>
         </div>
     </footer>
 
-    <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script> 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="script.js"></script>
 </body>
