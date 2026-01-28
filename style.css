@@ -57,35 +57,17 @@ body {
 .icon-wrap { transition: transform 0.3s ease; }
 .exp-item[open] .icon-wrap { transform: rotate(180deg); }
 
-.img-frame img {
-    position: relative; 
-    width: 100%; 
-    height: 400px;
-    border-radius: 30px; 
-    overflow: hidden; 
-    background: #0a0a0a;
-    transition: transform 0.5s ease;
+.img-frame {
+    position: relative; width: 100%; height: 400px;
+    border-radius: 30px; overflow: hidden; background: #0a0a0a;
 }
 .placeholder-img { width: 100%; height: 100%; }
-.frame-overlay span {
-    position: absolute; 
-    inset: 0; 
-    background: rgba(0,0,0,0.8);
-    display: flex; 
-    align-items: center; 
-    justify-content: center;
-    opacity: 0; 
-    transition: opacity 0.3s;
-    text-align: center;
-    max-width: 80%;
-    font-size: 14px;
-    line-height: 1.6;
-    color: white;
+.frame-overlay {
+    position: absolute; inset: 0; background: rgba(0,0,0,0.8);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.3s;
 }
-.project-container:hover img {
-    transform: scale(1.05);
-    transition: transform 0.5s ease;
-}
+.project-container:hover .frame-overlay { opacity: 1; }
 
 /* Footer Gradient Video Effect */
 .footer-wrap {
