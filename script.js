@@ -1,33 +1,28 @@
+// 1. INITIALIZE LENIS (THE SMOOTH SCROLL ENGINE)
+const lenis = new Lenis({
+    duration: 1.5,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // High-end ease-out curve
+    smoothWheel: true,
+    wheelMultiplier: 1,
+    orientation: 'vertical',
+    gestureOrientation: 'vertical',
+    smoothTouch: false, // Keep touch scrolling native for better mobile feel
+});
+
+// Animation loop to keep Lenis running
+function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+}
+requestAnimationFrame(raf);
+
+// 2. INITIALIZE AOS
 AOS.init({ duration: 1200, once: true });
 
-// --- SMOOTH SCROLL ENGINE ---
-let targetY = window.scrollY;
-let currentY = window.scrollY;
-const scrollEase = 0.075; // Adjust this: Lower is smoother, Higher is faster
+// Sync AOS with Lenis (important for scroll-triggered animations)
+lenis.on('scroll', AOS.refresh);
 
-window.addEventListener('wheel', (e) => {
-    e.preventDefault();
-    targetY += e.deltaY;
-    // Boundary checks
-    targetY = Math.max(0, Math.min(targetY, document.body.scrollHeight - window.innerHeight));
-}, { passive: false });
-
-function updateScroll() {
-    // Lerp calculation for buttery motion
-    currentY += (targetY - currentY) * scrollEase;
-    window.scrollTo(0, currentY);
-    
-    // Sync Orbs with Scroll for Parallax
-    const orb1 = document.querySelector('.orb-1');
-    const orb2 = document.querySelector('.orb-2');
-    if(orb1) orb1.style.transform = `translateY(${currentY * 0.15}px)`;
-    if(orb2) orb2.style.transform = `translateY(${currentY * -0.1}px)`;
-
-    requestAnimationFrame(updateScroll);
-}
-updateScroll();
-
-// --- CURSOR ENGINE ---
+// 3. CURSOR ENGINE
 const dot = document.querySelector('.cursor-dot');
 const outline = document.querySelector('.cursor-outline');
 let mouseX = 0, mouseY = 0;
@@ -47,13 +42,19 @@ function animateCursor() {
 }
 animateCursor();
 
-// Fix for Nav Links: Sync targetY when clicking
-document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', (e) => {
-        const targetId = link.getAttribute('href');
-        const targetSection = document.querySelector(targetId);
-        if(targetSection) {
-            targetY = targetSection.offsetTop;
-        }
+// 4. ORB PARALLAX
+lenis.on('scroll', (e) => {
+    const orb1 = document.querySelector('.orb-1');
+    const orb2 = document.querySelector('.orb-2');
+    if (orb1) orb1.style.transform = `translateY(${e.scroll * 0.1}px)`;
+    if (orb2) orb2.style.transform = `translateY(${e.scroll * -0.05}px)`;
+});
+
+// 5. NAV CLICK ANCHOR FIX (Smooth glide to section)
+document.querySelectorAll('.nav-link').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const id = this.getAttribute('href');
+        lenis.scrollTo(id); // Use lenis to scroll smoothly to the target
     });
 });
