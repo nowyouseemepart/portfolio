@@ -1,53 +1,33 @@
 AOS.init({ duration: 1200, once: true });
 
-const body = document.body;
-const scrollContainer = document.querySelector("#scroll-container");
-const scrollContent = document.querySelector("#scroll-content");
+// --- SMOOTH SCROLL ENGINE ---
+let targetY = window.scrollY;
+let currentY = window.scrollY;
+const scrollEase = 0.075; // Adjust this: Lower is smoother, Higher is faster
 
-let scrollTarget = 0;
-let scrollCurrent = 0;
-const scrollEase = 0.08; // Adjust between 0.05 (slower) and 0.1 (faster)
-
-// Sync height of body to content height
-function setBodyHeight() {
-    body.style.height = scrollContent.getBoundingClientRect().height + "px";
-}
-window.addEventListener("resize", setBodyHeight);
-setBodyHeight();
-
-// The Smoothing Function
-function lerp(start, end, t) {
-    return start * (1 - t) + end * t;
-}
-
-function smoothScroll() {
-    scrollCurrent = lerp(scrollCurrent, scrollTarget, scrollEase);
-    
-    // Move the content using GPU transform
-    scrollContent.style.transform = `translateY(-${scrollCurrent}px)`;
-    
-    // Refresh AOS positions as we scroll
-    if (Math.abs(scrollTarget - scrollCurrent) > 0.1) {
-        AOS.refresh();
-    }
-
-    requestAnimationFrame(smoothScroll);
-}
-
-// Mouse Wheel Event
-window.addEventListener("wheel", (e) => {
+window.addEventListener('wheel', (e) => {
     e.preventDefault();
-    scrollTarget += e.deltaY;
-    
-    // Clamp values
-    const maxScroll = scrollContent.getBoundingClientRect().height - window.innerHeight;
-    scrollTarget = Math.max(0, Math.min(scrollTarget, maxScroll));
+    targetY += e.deltaY;
+    // Boundary checks
+    targetY = Math.max(0, Math.min(targetY, document.body.scrollHeight - window.innerHeight));
 }, { passive: false });
 
-// Start the loop
-smoothScroll();
+function updateScroll() {
+    // Lerp calculation for buttery motion
+    currentY += (targetY - currentY) * scrollEase;
+    window.scrollTo(0, currentY);
+    
+    // Sync Orbs with Scroll for Parallax
+    const orb1 = document.querySelector('.orb-1');
+    const orb2 = document.querySelector('.orb-2');
+    if(orb1) orb1.style.transform = `translateY(${currentY * 0.15}px)`;
+    if(orb2) orb2.style.transform = `translateY(${currentY * -0.1}px)`;
 
-// --- CURSOR LOGIC ---
+    requestAnimationFrame(updateScroll);
+}
+updateScroll();
+
+// --- CURSOR ENGINE ---
 const dot = document.querySelector('.cursor-dot');
 const outline = document.querySelector('.cursor-outline');
 let mouseX = 0, mouseY = 0;
@@ -60,22 +40,20 @@ window.addEventListener('mousemove', (e) => {
 });
 
 function animateCursor() {
-    cursorX = lerp(cursorX, mouseX, 0.15);
-    cursorY = lerp(cursorY, mouseY, 0.15);
+    cursorX += (mouseX - cursorX) * 0.15;
+    cursorY += (mouseY - cursorY) * 0.15;
     outline.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
     requestAnimationFrame(animateCursor);
 }
 animateCursor();
 
-// --- NAV CLICK FIX ---
-// Standard anchors don't work with virtual scroll, so we intercept them
+// Fix for Nav Links: Sync targetY when clicking
 document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', (e) => {
-        e.preventDefault();
         const targetId = link.getAttribute('href');
-        const targetElement = document.querySelector(targetId);
-        if (targetElement) {
-            scrollTarget = targetElement.offsetTop;
+        const targetSection = document.querySelector(targetId);
+        if(targetSection) {
+            targetY = targetSection.offsetTop;
         }
     });
 });
