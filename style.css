@@ -1,43 +1,43 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap');
 
-/* --- REQUIRED FOR LENIS SMOOTH SCROLL --- */
-html.lenis {
-    height: auto;
-}
-.lenis.lenis-smooth {
-    scroll-behavior: auto !important;
-}
-.lenis.lenis-smooth [data-lenis-prevent] {
-    overscroll-behavior: contain;
-}
-.lenis.lenis-stopped {
-    overflow: hidden;
-}
-.lenis.lenis-scrolling iframe {
-    pointer-events: none;
+/* --- NATIVE SCROLL SETUP --- */
+html {
+    scroll-behavior: smooth; /* Essential for smooth anchor navigation */
+    overflow-x: hidden;
 }
 
-/* --- CORE STYLES --- */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    cursor: none; /* Hide default cursor to use custom one */
+}
+
 body {
     font-family: 'Inter', sans-serif;
     background-color: #050505;
     color: #94a3b8;
-    margin: 0;
+    overflow-x: hidden;
+    line-height: 1.6;
 }
 
+/* --- THE ORIGINAL BOLD TEXT --- */
 .hero-text {
     font-size: clamp(4rem, 12vw, 10rem);
     font-weight: 900;
     line-height: 0.8;
+    letter-spacing: -0.05em;
     color: white;
     text-transform: uppercase;
 }
+
 .hero-text span {
     display: block;
     color: transparent;
     -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
 }
 
+/* --- UI COMPONENTS --- */
 .nav-bar {
     position: fixed; top: 30px; left: 50%; transform: translateX(-50%);
     padding: 15px 40px; z-index: 1000; border-radius: 100px;
@@ -49,19 +49,52 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* Background Effects */
+/* --- CURSOR --- */
+.cursor-dot, .cursor-outline {
+    position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999;
+}
+.cursor-dot { width: 6px; height: 6px; background: white; border-radius: 50%; margin: -3px; }
+.cursor-outline { 
+    width: 40px; height: 40px; border: 1px solid rgba(255,255,255,0.4); 
+    border-radius: 50%; margin: -20px;
+    transition: transform 0.15s ease-out; /* Creates a slight lag effect */
+}
+
+/* --- PROJECT CARDS --- */
+.img-frame {
+    position: relative; width: 100%; height: 350px;
+    border-radius: 24px; overflow: hidden; background: #0a0a0a;
+}
+.img-frame img {
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.group:hover .img-frame img {
+    transform: scale(1.05);
+}
+.frame-overlay {
+    position: absolute; inset: 0; background: rgba(0,0,0,0.85);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.4s ease; padding: 2rem;
+    color: white; font-size: 0.875rem; text-align: center;
+}
+.group:hover .frame-overlay { opacity: 1; }
+
+/* --- BACKGROUND GRAPHICS --- */
 .bg-container { position: fixed; inset: 0; z-index: -2; background: #050505; }
-.orb { position: absolute; width: 60vw; height: 60vw; border-radius: 50%; filter: blur(100px); opacity: 0.12; }
+.noise-overlay {
+    position: absolute; inset: -50%;
+    background: url('https://grainy-gradients.vercel.app/noise.svg');
+    opacity: 0.12; animation: noise-jitter 0.2s infinite;
+}
+.orb {
+    position: absolute; width: 60vw; height: 60vw; border-radius: 50%;
+    filter: blur(100px); opacity: 0.12; z-index: -1;
+}
 .orb-1 { background: #3b82f6; top: -10%; left: -10%; }
 .orb-2 { background: #1e1b4b; bottom: 0; right: -10%; }
 
-/* Cursor */
-.cursor-dot, .cursor-outline { position: fixed; pointer-events: none; z-index: 9999; }
-.cursor-dot { width: 6px; height: 6px; background: white; border-radius: 50%; margin: -3px; }
-.cursor-outline { width: 40px; height: 40px; border: 1px solid rgba(255,255,255,0.4); border-radius: 50%; margin: -20px; }
-
-/* Contact */
-.footer-wrap { position: relative; overflow: hidden; }
+/* --- FOOTER & CONTACT --- */
+.footer-wrap { position: relative; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
 .gradient-bg-video {
     position: absolute; inset: 0;
     background: linear-gradient(45deg, #050505, #1e3a8a, #000, #312e81);
@@ -69,6 +102,20 @@ body {
     opacity: 0.6; z-index: -1;
 }
 
+.contact-pill {
+    padding: 20px 40px; border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 100px; background: rgba(255, 255, 255, 0.05);
+    font-weight: bold; color: white; text-decoration: none;
+    transition: all 0.3s ease;
+}
+.contact-pill:hover { background: white; color: black; transform: scale(1.05); }
+
+/* --- ANIMATIONS --- */
+@keyframes noise-jitter {
+    0% { transform: translate(0,0); }
+    10% { transform: translate(-0.5%,-0.5%); }
+    100% { transform: translate(0.5%,0.5%); }
+}
 @keyframes liquid-gradient {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
