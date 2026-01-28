@@ -1,34 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap');
 
-/* Lock the browser scroll */
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #050505;
+html {
+    scroll-behavior: auto; /* Handled by JS */
+    overflow-x: hidden;
+}
+
+body {
     font-family: 'Inter', sans-serif;
+    background-color: #050505;
+    color: #94a3b8;
+    margin: 0;
+    overscroll-behavior-y: none; /* Prevents bounce back */
 }
-
-/* The Fixed Window */
-#scroll-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-}
-
-/* The Moving Content */
-#scroll-content {
-    width: 100%;
-    will-change: transform;
-    display: flex;
-    flex-direction: column;
-}
-
-* { cursor: none; }
 
 /* --- HERO TEXT --- */
 .hero-text {
@@ -46,23 +29,78 @@ html, body {
 }
 
 /* --- UI ELEMENTS --- */
-.nav-bar {
-    position: fixed; top: 30px; left: 50%; transform: translateX(-50%);
-    padding: 15px 40px; z-index: 1000; border-radius: 100px;
+.glass {
     background: rgba(255, 255, 255, 0.02);
     backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 24px;
+}
+
+.nav-bar {
+    position: fixed; top: 30px; left: 50%; transform: translateX(-50%);
+    padding: 15px 40px; z-index: 1000; border-radius: 100px;
 }
 
 .cursor-dot, .cursor-outline {
     position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999;
 }
 .cursor-dot { width: 6px; height: 6px; background: white; border-radius: 50%; margin: -3px; }
-.cursor-outline { width: 40px; height: 40px; border: 1px solid rgba(255,255,255,0.4); border-radius: 50%; margin: -20px; }
+.cursor-outline { 
+    width: 40px; height: 40px; border: 1px solid rgba(255,255,255,0.4); 
+    border-radius: 50%; margin: -20px;
+    will-change: transform;
+}
 
 /* --- PROJECT CARDS --- */
-.img-frame { position: relative; width: 100%; height: 350px; border-radius: 24px; overflow: hidden; background: #0a0a0a; }
-.frame-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.85); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.4s ease; padding: 2rem; color: white; text-align: center; }
+.img-frame { 
+    position: relative; width: 100%; height: 350px; 
+    border-radius: 24px; overflow: hidden; background: #0a0a0a; 
+}
+.frame-overlay { 
+    position: absolute; inset: 0; background: rgba(0,0,0,0.85); 
+    display: flex; align-items: center; justify-content: center; 
+    opacity: 0; transition: opacity 0.4s ease; padding: 2rem; 
+    color: white; text-align: center; font-size: 0.875rem;
+}
 .project-container:hover .frame-overlay { opacity: 1; }
 
-.footer-wrap { position: relative; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+/* --- BACKGROUND --- */
+.bg-container { position: fixed; inset: 0; z-index: -2; background: #050505; }
+.noise-overlay {
+    position: absolute; inset: -50%;
+    background: url('https://grainy-gradients.vercel.app/noise.svg');
+    opacity: 0.12; animation: noise-jitter 0.2s infinite;
+}
+.orb {
+    position: absolute; width: 60vw; height: 60vw; border-radius: 50%;
+    filter: blur(100px); opacity: 0.12; z-index: -1;
+}
+.orb-1 { background: #3b82f6; top: -10%; left: -10%; }
+.orb-2 { background: #1e1b4b; bottom: 0; right: -10%; }
+
+.contact-pill {
+    padding: 20px 40px; border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 100px; background: rgba(255,255,255,0.05);
+    font-weight: bold; color: white; text-decoration: none;
+    transition: all 0.3s ease;
+}
+.contact-pill:hover { background: white; color: black; }
+
+.footer-wrap { position: relative; overflow: hidden; }
+.gradient-bg-video {
+    position: absolute; inset: 0;
+    background: linear-gradient(45deg, #050505, #1e3a8a, #000, #312e81);
+    background-size: 400% 400%; animation: liquid-gradient 15s ease infinite;
+    opacity: 0.6; z-index: -1;
+}
+
+@keyframes noise-jitter {
+    0% { transform: translate(0,0); }
+    10% { transform: translate(-0.5%,-0.5%); }
+    100% { transform: translate(0.5%,0.5%); }
+}
+@keyframes liquid-gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
