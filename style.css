@@ -67,6 +67,12 @@ body {
     display: flex; align-items: center; justify-content: center;
     opacity: 0; transition: opacity 0.3s;
 }
+.frame-overlay span {
+    text-align: center;
+    max-width: 80%;
+    line-height: 1.6;
+    font-size: 0.9rem;
+}
 .project-container:hover .frame-overlay { opacity: 1; }
 
 /* Footer Gradient Video Effect */
